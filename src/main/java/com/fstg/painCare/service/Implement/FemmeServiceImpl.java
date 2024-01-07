@@ -54,7 +54,6 @@ public class FemmeServiceImpl implements FemmeService {
 		UserDto userDto = femmeDto.getUser();
 		FemmeEntity femmeEntity = modelMapper.map(femmeDto, FemmeEntity.class);
 		UserDto usersaved = userService.save(userDto);
-		System.out.println(usersaved);
 		UserEntity userEntity = modelMapper.map(usersaved , UserEntity.class);
 		femmeEntity.setUser(userEntity);
 		
@@ -69,8 +68,19 @@ public class FemmeServiceImpl implements FemmeService {
 		
 		if(femmeOptional.isPresent()) {
 			
+			UserDto userDto = femmeDto.getUser();
+			userDto.setUserId( femmeOptional.get().getUser().getUserId() );
+			userDto.setPassword( femmeOptional.get().getUser().getPassword() );
+			
 			FemmeEntity femmeEntity = modelMapper.map(femmeDto, FemmeEntity.class);
+			
+			UserDto usersaved = userService.update( userDto , femmeOptional.get().getUser().getUserId() );
+			
+			UserEntity userEntity = modelMapper.map(usersaved , UserEntity.class);
+			
+			femmeEntity.setUser(userEntity);
 			femmeEntity.setFemmeId(id);
+			
 			FemmeEntity updated = femmeDao.save(femmeEntity);
 			return modelMapper.map(updated, FemmeDto.class);
 			

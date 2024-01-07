@@ -3,11 +3,12 @@ package com.fstg.painCare.models;
 import java.io.Serializable;
 
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
 import javax.persistence.Table;
 
 import lombok.AccessLevel;
@@ -29,16 +30,17 @@ public class CommantaireEntity implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@EmbeddedId
-	CommantaireKey key;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "commantaire_id")
+	Integer commantaireId;
+
 	
-	@ManyToOne()
-	@MapsId("userId")
-	@JoinColumn(name = "user_id")
-	FemmeEntity user ;
+	@ManyToOne
+	@JoinColumn(name = "femme_id")
+	FemmeEntity femme ;
 	
-	@ManyToOne()
-	@MapsId("blogId")
+	@ManyToOne
 	@JoinColumn(name = "blog_id")
 	BlogEntity blog ;
 	

@@ -67,7 +67,7 @@ public class FemmeEntity implements Serializable {
 	@OneToMany(mappedBy = "femme" ,cascade = CascadeType.ALL , fetch = FetchType.LAZY )
 	List<BlogEntity> blogs ;
 	
-	@OneToMany(mappedBy = "user" ,cascade = CascadeType.ALL , fetch = FetchType.LAZY )
+	@OneToMany(mappedBy = "femme" ,cascade = CascadeType.ALL , fetch = FetchType.LAZY )
 	List<CommantaireEntity> commantaires ;
 	
 	@OneToOne()
@@ -76,5 +76,8 @@ public class FemmeEntity implements Serializable {
 	
 	@OneToMany(mappedBy = "femme" , cascade = CascadeType.ALL , fetch = FetchType.LAZY)
 	List<TestEntity> tests ;
+	
+	@OneToMany(mappedBy = "femme" , cascade = CascadeType.ALL , fetch = FetchType.LAZY)
+	List<DiagnosticEntity> diagnostic ;
 	
 }

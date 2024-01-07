@@ -40,7 +40,7 @@ public class RoleEntity implements Serializable {
 	@Column( nullable = false )
 	String name;
 	
-	@OneToMany(mappedBy = "role" , cascade = CascadeType.ALL , fetch = FetchType.LAZY )
-	List<UserEntity> user ;
+	@OneToMany(mappedBy = "role" , fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	List<UserEntity> users;
 	
 }

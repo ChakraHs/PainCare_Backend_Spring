@@ -7,4 +7,6 @@ import com.fstg.painCare.models.BlogEntity;
 @Repository
 public interface BlogDao extends JpaRepository<BlogEntity, Integer> {
 
+	
+	
 }

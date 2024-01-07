@@ -1,6 +1,7 @@
 package com.fstg.painCare.models;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -13,8 +14,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
-
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -47,11 +50,20 @@ public class BlogEntity implements Serializable {/**
 	@Column(nullable = false)
 	String description;
 	
+	@Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "blog_date", nullable = false, updatable = false)
+    private Date blogDate;
+	
 	@ManyToOne()
 	@JoinColumn(name = "femme_id")
 	FemmeEntity femme ;
 	
 	@OneToMany(mappedBy = "blog" ,cascade = CascadeType.ALL , fetch = FetchType.LAZY )
 	List<CommantaireEntity> commantaires ; 
+	
+	@PrePersist
+    protected void onCreate() {
+        this.blogDate = new Date();
+    }
 
 }

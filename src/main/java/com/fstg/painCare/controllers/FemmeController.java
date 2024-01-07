@@ -59,11 +59,7 @@ public class FemmeController {
 	
 	@PutMapping("/id/{id}")
 	public ResponseEntity<FemmeDto> update(@Valid @RequestBody FemmeDto femmeDto, @PathVariable Integer id) throws NotFoundException {
-		System.out.println("test 1 ");
-		UserDto userDto = userService.findById( femmeDto.getUser().getUserId() );
-		System.out.println(userDto);
-		femmeDto.setUser(userDto);
-		System.out.println("test 2 ");
+
 		FemmeDto updated = femmeService.update(femmeDto, id);
 		return ResponseEntity.accepted().body(updated);
 	}

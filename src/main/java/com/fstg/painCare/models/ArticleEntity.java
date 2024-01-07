@@ -7,8 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.AccessLevel;
@@ -43,9 +41,5 @@ public class ArticleEntity implements Serializable {
 	
 	@Column(nullable = false)
 	String description;
-	
-	@ManyToOne()
-	@JoinColumn(name = "admin_id")
-	AdminEntity admin;
 	
 }

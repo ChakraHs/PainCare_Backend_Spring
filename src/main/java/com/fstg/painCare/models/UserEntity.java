@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -21,7 +22,9 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
 @Entity
-@Table(name = "users")
+@Table( name = "users" , uniqueConstraints = {
+        @UniqueConstraint(columnNames = "email")
+})
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -39,10 +42,10 @@ public class UserEntity implements Serializable {
 	Integer userId;
 	
 	@ManyToOne()
-	@JoinColumn(name = "role_id" )
-	RoleEntity role ;
+	@JoinColumn(name = "role_id")
+	RoleEntity role;
 	
-	@Column( nullable = false )
+	@Column( nullable = false , unique = true )
 	String email;
 	
 	@Column( nullable = false )
