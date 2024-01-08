@@ -26,8 +26,10 @@ import com.fstg.painCare.config.service.UserDetailsImpl;
 import com.fstg.painCare.dao.RoleDao;
 import com.fstg.painCare.dao.UserDao;
 import com.fstg.painCare.dto.FemmeDto;
+import com.fstg.painCare.dto.UserDto;
 import com.fstg.painCare.dto.auth.JwtResponseDto;
 import com.fstg.painCare.dto.auth.LoginDto;
+import com.fstg.painCare.dto.auth.RegisterDto;
 import com.fstg.painCare.service.facade.FemmeService;
 import com.fstg.painCare.shared.ErrorMessage;
 
@@ -80,7 +82,12 @@ public class AuthController {
     }
     
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody FemmeDto femmeDto) {
+    public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterDto registerDto) {
+    	
+    	
+    	
+    	FemmeDto femmeDto = new FemmeDto(null, registerDto.getName(), registerDto.getSurname(), "avatar1", "ville", "rue_add", "061414", "WA3443", "test", new UserDto(null, null, registerDto.getEmail(), registerDto.getPassword(), null));
+    	
       if (userDao.existsByEmail(femmeDto.getUser().getEmail())) {
         return ResponseEntity
             .badRequest()
