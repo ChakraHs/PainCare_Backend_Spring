@@ -73,8 +73,11 @@ public class AuthController {
     			.map(item -> item.getAuthority())
     			.collect(Collectors.toList());
 
+    	FemmeDto femmeDto = femmeService.findByUser(userDetails.getId());
+    	
     	return ResponseEntity.ok(new JwtResponseDto(jwt, 
                            userDetails.getId(), 
+                           femmeDto.getFemmeId(),
                            userDetails.getUsername(),  
                            roles , 
                            "success"
@@ -113,6 +116,7 @@ public class AuthController {
     	role.add(saved.getUser().getRole().getName());
       return ResponseEntity.ok(new JwtResponseDto(jwt, 
               saved.getUser().getUserId(), 
+              saved.getFemmeId(),
               saved.getUser().getEmail(),  
               role , 
               "success"
