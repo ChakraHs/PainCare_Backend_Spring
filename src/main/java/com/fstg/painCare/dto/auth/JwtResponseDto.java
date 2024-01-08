@@ -14,14 +14,16 @@ public class JwtResponseDto {
 
 	String token;
 	String type = "Bearer";
-	Integer id;
+	Integer userId;
+	Integer femmeId;
 	String email;
 	List<String> roles;
 	String message;
-	public JwtResponseDto(String token, Integer id, String email, List<String> roles , String message) {
+	public JwtResponseDto(String token, Integer userId,Integer femmeId , String email, List<String> roles , String message) {
 		super();
 		this.token = token;
-		this.id = id;
+		this.userId = userId;
+		this.femmeId = femmeId;
 		this.email = email;
 		this.roles = roles;
 		this.message= message;
