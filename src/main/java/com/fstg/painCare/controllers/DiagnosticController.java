@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fstg.painCare.dto.DiagnosticDto;
 import com.fstg.painCare.dto.FemmeDto;
+import com.fstg.painCare.dto.UserDto;
 import com.fstg.painCare.service.facade.DiagnosticService;
 import com.fstg.painCare.service.facade.FemmeService;
+import com.fstg.painCare.service.facade.UserService;
 
 import lombok.AllArgsConstructor;
 
@@ -31,6 +33,7 @@ public class DiagnosticController {
 
 	private DiagnosticService diagnosticService;
 	private FemmeService femmeService;
+	private UserService userService;
 	
 	@GetMapping("")
 	public ResponseEntity<List<DiagnosticDto>> findAll(){
@@ -61,8 +64,8 @@ public class DiagnosticController {
     public ResponseEntity<List<DiagnosticDto>> findByFemme( @PathVariable Integer id ) {
 		
 		System.out.println(id);
-		FemmeDto dto = femmeService.findById( id );
-    	return ResponseEntity.ok(diagnosticService.findByFemme(dto));
+		FemmeDto femmeDto = femmeService.findByUser(id);
+    	return ResponseEntity.ok(diagnosticService.findByFemme(femmeDto));
     	
     }
 	

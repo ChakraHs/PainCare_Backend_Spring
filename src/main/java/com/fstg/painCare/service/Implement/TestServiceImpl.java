@@ -8,9 +8,12 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.fstg.painCare.dao.TestDao;
+import com.fstg.painCare.dto.DiagnosticDto;
 import com.fstg.painCare.dto.FemmeDto;
 import com.fstg.painCare.dto.QuestionDto;
 import com.fstg.painCare.dto.TestDto;
@@ -47,16 +50,14 @@ public class TestServiceImpl implements TestService {
 	public TestDto save(TestDto testDto) {
 		
 		Integer femmeId = testDto.getFemme().getFemmeId();
-		Integer questionId = testDto.getQuestion().getQuestionId();
+		
 		TestEntity testEntity = modelMapper.map(testDto, TestEntity.class);  
 		
 		FemmeDto femmeDto = femmeService.findById( femmeId );
-		QuestionDto questionDto = questionService.findById(questionId);
 		
-		if(femmeDto != null && questionDto != null) {
+		if(femmeDto != null ) {
 			
 			testEntity.setFemme( modelMapper.map(femmeDto, FemmeEntity.class) );
-			testEntity.setQuestion( modelMapper.map( questionDto , QuestionEntity.class ) );
 			
 			try {
 				
@@ -81,11 +82,9 @@ public class TestServiceImpl implements TestService {
 			
 			TestEntity testEntity = modelMapper.map(testDto, TestEntity.class);
 			FemmeEntity femme = optional.get().getFemme();
-			QuestionEntity question = optional.get().getQuestion();
 			
 			testEntity.setTestId(id);
 			testEntity.setFemme(femme);
-			testEntity.setQuestion(question);
 			
 			TestEntity updated = testDao.save(testEntity);
 			return modelMapper.map(updated, TestDto.class);
@@ -106,6 +105,19 @@ public class TestServiceImpl implements TestService {
 		
 		TestEntity testEntity = testDao.findById(id).orElseThrow( ()->new EntityNotFoundException("Test Not Found"));
 		testDao.delete(testEntity);
+	}
+	@Override
+	public List<TestDto> findByFemme(Integer id) {
+		
+		FemmeDto dto = femmeService.findById(id);
+		
+		FemmeEntity femmeEntity = modelMapper.map(dto, FemmeEntity.class);
+		Pageable pageable = PageRequest.of(0, 1);
+		
+		
+		return testDao.findByFemmeOrderByTestDateDesc(femmeEntity, pageable)
+				.stream().map( el->modelMapper.map(el, TestDto.class) )
+				.collect(Collectors.toList());
 	}
 	
 	

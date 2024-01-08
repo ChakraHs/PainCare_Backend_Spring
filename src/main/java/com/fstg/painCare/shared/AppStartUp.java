@@ -41,13 +41,13 @@ public class AppStartUp implements CommandLineRunner {
 		if(userService.findAll().isEmpty()) {
 			
 			
-			UserDto userDto = new UserDto(null, null, "ismailtelhouni123@gmail.com", "123456");
+			UserDto userDto = new UserDto(null, null, "ismailtelhouni123@gmail.com", "123456",null);
 			
 			AdminDto adminDto = new AdminDto(null, "telhouni", "ismail", userDto);
 			System.out.println("test 1");
 			adminService.save(adminDto);
 			System.out.println("test 2");
-			UserDto userDto2 = new UserDto(null, null, "nouratelhouni123@gmail.com", "123456");
+			UserDto userDto2 = new UserDto(null, null, "nouratelhouni123@gmail.com", "123456",null);
 			
 			FemmeDto femmeDto = new FemmeDto(null, "telhouni", "noura", "path", "berrechid", "Rue mohammed 5", "50", "0600112233", "WA241535", userDto2);
 			

@@ -71,13 +71,13 @@ public class WebSecurityConfig {
 //		Configure les autorisations pour différentes requêtes HTTP:
 		
 		http.csrf(csrf -> csrf.disable()).cors().and()
-	        .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
-	        .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-	        .authorizeRequests(auth -> 
-	          auth.antMatchers("/api/auth/**").permitAll()
-	              .antMatchers("/api/test/**").permitAll()
-	              .anyRequest().authenticated()
-	        );
+        .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
+        .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+        .authorizeRequests(auth -> 
+          auth.antMatchers("/api/auth/**").permitAll()
+              .antMatchers("/api/test/**").permitAll()
+              .anyRequest().authenticated()
+        );
 	    
 	    http.authenticationProvider(authenticationProvider());
 
@@ -85,6 +85,7 @@ public class WebSecurityConfig {
 	    
 	    return http.build();
 	  }
+
 	@Bean
 	public CorsConfigurationSource corsConfigurationSource() {
 	    CorsConfiguration configuration = new CorsConfiguration();

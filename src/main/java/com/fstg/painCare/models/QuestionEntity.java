@@ -48,8 +48,5 @@ public class QuestionEntity implements Serializable {
 	
 	@OneToMany(mappedBy = "question" , cascade = CascadeType.ALL , fetch = FetchType.LAZY )
 	List<ReponseEntity> reponse;
-	
-	@OneToMany(mappedBy = "question" , cascade = CascadeType.ALL , fetch = FetchType.LAZY )
-	List<TestEntity> tests;
 
 }
