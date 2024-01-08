@@ -105,4 +105,16 @@ public class FemmeServiceImpl implements FemmeService {
 		
 	}
 
+	@Override
+	public FemmeDto findByUser(Integer id) {
+		
+		UserDto userDto = userService.findById(id);
+		
+		UserEntity userEntity = modelMapper.map(userDto, UserEntity.class);
+		
+		FemmeEntity femmeEntity = femmeDao.findByUser(userEntity);
+		
+		return modelMapper.map(femmeEntity, FemmeDto.class);
+	}
+
 }

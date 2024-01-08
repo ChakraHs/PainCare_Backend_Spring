@@ -63,4 +63,11 @@ public class TestController {
 		return ResponseEntity.noContent().build();
 	}
 	
+	@GetMapping("/femme/{id}")
+    public ResponseEntity<List<TestDto>> findByFemme( @PathVariable Integer id ) {
+		
+    	return ResponseEntity.ok(testService.findByFemme(id));
+    	
+    }
+	
 }

@@ -17,6 +17,8 @@ public interface TestService {
 	
 	TestDto findById( Integer id );
 	
+	List<TestDto>  findByFemme( Integer id );
+	
 	void delete( Integer id );
 	
 	

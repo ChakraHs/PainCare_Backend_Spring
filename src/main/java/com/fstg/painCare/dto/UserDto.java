@@ -24,4 +24,6 @@ public class UserDto {
 	@NotNull(message="le mots de pass est obligatoire !!")
 	String password;
 	
+	FemmeDto femmeDto;
+	
 }

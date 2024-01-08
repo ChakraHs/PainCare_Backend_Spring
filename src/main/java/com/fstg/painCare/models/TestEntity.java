@@ -39,10 +39,6 @@ public class TestEntity implements Serializable {
 	@Column(name = "test_id")
 	Integer testId ;
 	
-	@ManyToOne()
-	@JoinColumn(name = "question_id" )
-	QuestionEntity question ;
-	
 	@Column( nullable = false )
 	String reponse;
 	

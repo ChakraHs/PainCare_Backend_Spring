@@ -21,8 +21,6 @@ public class TestDto {
 	@NotNull(message="la reponse est obligatoire !!")
 	String reponse;
 	
-	QuestionDto question ;
-	
 	Date testDate;
 	
 	FemmeDto femme;
