@@ -7,7 +7,6 @@ import javax.validation.Valid;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,10 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fstg.painCare.dto.DiagnosticDto;
 import com.fstg.painCare.dto.FemmeDto;
-import com.fstg.painCare.dto.UserDto;
 import com.fstg.painCare.service.facade.DiagnosticService;
 import com.fstg.painCare.service.facade.FemmeService;
-import com.fstg.painCare.service.facade.UserService;
 
 import lombok.AllArgsConstructor;
 
@@ -33,7 +30,6 @@ public class DiagnosticController {
 
 	private DiagnosticService diagnosticService;
 	private FemmeService femmeService;
-	private UserService userService;
 	
 	@GetMapping("")
 	public ResponseEntity<List<DiagnosticDto>> findAll(){

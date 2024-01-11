@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 
 import com.fstg.painCare.dto.FemmeDto;
-import com.fstg.painCare.dto.UserDto;
 
 public interface FemmeService {
 

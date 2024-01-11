@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public class UserAuthentication {
 
-	private Integer getUserIdAfterAuthentication() {
+	public Integer getUserIdAfterAuthentication() {
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		
