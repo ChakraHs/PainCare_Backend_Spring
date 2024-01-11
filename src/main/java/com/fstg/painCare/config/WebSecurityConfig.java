@@ -75,7 +75,7 @@ public class WebSecurityConfig {
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeRequests(auth -> 
           auth.antMatchers("/api/auth/**").permitAll()
-              .antMatchers("/api/test/**").permitAll()
+              .antMatchers("/image/**").permitAll()
               .anyRequest().authenticated()
         );
 	    
@@ -85,15 +85,14 @@ public class WebSecurityConfig {
 	    
 	    return http.build();
 	  }
-	
-	
+
 	@Bean
 	public CorsConfigurationSource corsConfigurationSource() {
 	    CorsConfiguration configuration = new CorsConfiguration();
 	    configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200/"));
 	    configuration.setAllowedMethods(Arrays.asList("*"));
 	    configuration.setAllowedHeaders(Arrays.asList("*"));
-	    
+	    configuration.setAllowCredentials(true);
 	    
 
 	    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

@@ -13,16 +13,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.fstg.painCare.dao.TestDao;
-import com.fstg.painCare.dto.DiagnosticDto;
 import com.fstg.painCare.dto.FemmeDto;
-import com.fstg.painCare.dto.QuestionDto;
 import com.fstg.painCare.dto.TestDto;
 import com.fstg.painCare.exception.EntityNotFoundException;
 import com.fstg.painCare.models.FemmeEntity;
-import com.fstg.painCare.models.QuestionEntity;
 import com.fstg.painCare.models.TestEntity;
 import com.fstg.painCare.service.facade.FemmeService;
-import com.fstg.painCare.service.facade.QuestionService;
 import com.fstg.painCare.service.facade.TestService;
 
 import lombok.AllArgsConstructor;
@@ -33,7 +29,6 @@ public class TestServiceImpl implements TestService {
 
 	private TestDao testDao;
 	private FemmeService femmeService;
-	private QuestionService questionService;
 	private ModelMapper modelMapper;
 	private static final Logger logger = LoggerFactory.getLogger(CommantaireServiceImpl.class);
 	

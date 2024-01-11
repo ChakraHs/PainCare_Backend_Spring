@@ -61,7 +61,6 @@ public class JwtUtils {
 	    try {
 	    	// Parse le jeton JWT en utilisant la clé secrète
 	    	Jwts.parserBuilder().setSigningKey(key()).build().parse(authToken);
-	    	System.out.println("testjwt");
 	    	return true;
 	    } catch (MalformedJwtException e) {
 	    	logger.error("Invalid JWT token: {}", e.getMessage());

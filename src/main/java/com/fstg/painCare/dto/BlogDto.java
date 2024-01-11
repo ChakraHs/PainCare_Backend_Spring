@@ -3,6 +3,7 @@ package com.fstg.painCare.dto;
 
 
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -37,4 +38,8 @@ public class BlogDto {
 	Date blogDate;
 	
 	FemmeDto femme ;
+	
+	List<CommantaireDto> commantaires;
+	
+	Integer nbrCommantaire;
 }

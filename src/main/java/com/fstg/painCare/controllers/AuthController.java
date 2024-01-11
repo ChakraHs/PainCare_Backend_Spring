@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fstg.painCare.config.jwt.JwtUtils;
 import com.fstg.painCare.config.service.UserDetailsImpl;
-import com.fstg.painCare.dao.RoleDao;
 import com.fstg.painCare.dao.UserDao;
 import com.fstg.painCare.dto.FemmeDto;
 import com.fstg.painCare.dto.UserDto;
@@ -41,22 +40,19 @@ public class AuthController {
 	
 	
 	@Autowired
-	AuthenticationManager authenticationManager;
+	private AuthenticationManager authenticationManager;
 	
 	@Autowired
-	UserDao userDao;
+	private UserDao userDao;
 	
 	@Autowired
-	FemmeService femmeService;
-	
-	@Autowired
-	RoleDao roleDao;
+	private FemmeService femmeService;
 	
   	@Autowired
-  	PasswordEncoder encoder;
+  	private PasswordEncoder encoder;
   	
     @Autowired
-    JwtUtils jwtUtils;
+    private JwtUtils jwtUtils;
     
     @PostMapping("/login")
     public ResponseEntity<JwtResponseDto> authenticateUser(@Valid @RequestBody LoginDto loginDto) {

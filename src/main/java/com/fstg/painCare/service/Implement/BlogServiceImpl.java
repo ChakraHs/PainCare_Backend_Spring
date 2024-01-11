@@ -1,10 +1,14 @@
-	package com.fstg.painCare.service.Implement;
+package com.fstg.painCare.service.Implement;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -13,21 +17,22 @@ import com.fstg.painCare.dto.BlogDto;
 import com.fstg.painCare.dto.FemmeDto;
 import com.fstg.painCare.exception.EntityNotFoundException;
 import com.fstg.painCare.models.BlogEntity;
+import com.fstg.painCare.models.FemmeEntity;
 import com.fstg.painCare.service.facade.BlogService;
-import com.fstg.painCare.service.facade.FemmeService;
 
 @Service
 public class BlogServiceImpl implements BlogService {
 
 	private BlogDao blogDao;
-	private FemmeService femmeService;
 	private ModelMapper modelMapper;
 	
-	public BlogServiceImpl(BlogDao blogDao, ModelMapper modelMapper,FemmeService femmeService) {
+	@Value("${upload.dir}") // Specify the directory where images will be stored
+    private String uploadDir;
+	
+	public BlogServiceImpl(BlogDao blogDao, ModelMapper modelMapper) {
 		super();
 		this.blogDao = blogDao;
 		this.modelMapper = modelMapper;
-		this.femmeService = femmeService;
 	}
 
 	@Override
@@ -41,10 +46,8 @@ public class BlogServiceImpl implements BlogService {
 	}
 
 	@Override
-	public BlogDto save(BlogDto blogDto) {
+	public BlogDto save(BlogDto blogDto ) throws IOException {
 		
-		FemmeDto femmeDto = femmeService.findById(blogDto.getFemme().getFemmeId());
-		blogDto.setFemme(femmeDto);
 		BlogEntity blogEntity = modelMapper.map(blogDto, BlogEntity.class);
 		BlogEntity saved = blogDao.save(blogEntity);
 		
@@ -83,6 +86,42 @@ public class BlogServiceImpl implements BlogService {
 		BlogEntity blogEntity = blogDao.findById(id).orElseThrow( ()->new EntityNotFoundException("User Not Found"));
 		blogDao.delete(blogEntity);
 		
+	}
+
+	@Override
+	public List<BlogDto> findbyFemme(FemmeDto femmeDto) {
+		
+		FemmeEntity femmeEntity = modelMapper.map(femmeDto, FemmeEntity.class);
+		
+		List<BlogDto> dtos = blogDao
+				.findByFemme(femmeEntity)
+				.stream().map( el->modelMapper.map(el, BlogDto.class) )
+				.collect(Collectors.toList());
+		
+		dtos.forEach(el -> el.setNbrCommantaire(el.getCommantaires().size()));
+		
+		return dtos;
+	}
+
+	@Override
+	public Resource loadImageAsResource(String imageName) {
+
+		try {
+            Resource resource = new ClassPathResource("static/image/" + imageName);
+            
+            if (resource.exists()) {
+            	
+                return resource;
+            } else {
+                // Gérer le cas où l'image n'est pas trouvée
+                // Vous pouvez retourner une image par défaut ou générer une réponse d'erreur
+                // selon vos besoins.
+                return null;
+            }
+        } catch (Exception ex) {
+            // Gérer les exceptions liées au chargement de l'image
+            return null;
+        }
 	}
 
 	
